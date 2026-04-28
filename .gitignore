@@ -1,0 +1,19 @@
+# IDEs
+.vscode
+.idea
+
+# MacOS
+.DS_Store
+
+# Build files
+**/dist/
+**/.astro/
+
+# Installs
+**/node_modules/
+
+# Env vars
+.env
+.env.example
+
+
