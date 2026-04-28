@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VCardButton from '../components/VCardButton.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { owner } from '../data/owner';
+---
+
+<BaseLayout title="Isaac Ingram" description="Let's connect.">
+  <div data-pagefind-ignore class="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center px-6 py-16">
+
+    <div class="w-full max-w-xs mx-auto flex flex-col items-center text-center gap-7">
+
+      <!-- Profile photo with colored ring -->
+      <div class="relative">
+        <div class="w-28 h-28 rounded-full overflow-hidden ring-4 ring-sky/40 bg-navy-light flex items-center justify-center">
+          <img
+            src="/profile.jpeg"
+            alt={owner.name}
+            width="112"
+            height="112"
+            class="w-full h-full object-cover"
+            onerror="this.parentElement.innerHTML='<span style=\'font-size:2.5rem;font-weight:700;color:rgba(241,218,191,0.3)\'>II</span>'"
+          />
+        </div>
+      </div>
+
+      <div>
+        <h1 class="text-2xl font-bold text-cream mb-1">{owner.name}</h1>
+        <p class="text-sky text-sm font-medium">{owner.shortBio}</p>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="w-full flex flex-col gap-3">
+        <VCardButton />
+        <a
+          href={`mailto:${owner.email}`}
+          class="w-full flex items-center justify-center gap-2.5 px-8 py-4 border-2 border-sky/40 text-sky hover:bg-sky/10 font-semibold rounded-xl transition-colors text-base"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          Send Email
+        </a>
+      </div>
+
+      <!-- Social links -->
+      <div class="w-full border-t border-white/10 pt-6">
+        <p class="text-xs text-cream/30 mb-4 uppercase tracking-widest font-mono">Find me on</p>
+        <SocialLinks size="lg" class="justify-center" />
+      </div>
+
+      <a href="/" class="text-xs text-cream/25 hover:text-cream/50 transition-colors">
+        isaacingram.com
+      </a>
+
+    </div>
+  </div>
+</BaseLayout>

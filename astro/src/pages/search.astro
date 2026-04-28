@@ -1,0 +1,29 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout title="Search" description="Search across projects and blog posts.">
+  <div data-pagefind-ignore>
+    <h1 class="text-4xl font-bold text-cream mb-3">Search</h1>
+    <p class="text-cream/60 mb-8">Search across projects and blog posts.</p>
+    <div id="pagefind-search-page"></div>
+  </div>
+</PageLayout>
+
+<script is:inline>
+  async function init() {
+    try {
+      // @ts-ignore
+      const { PagefindUI } = await import('/pagefind/pagefind-ui.js');
+      new PagefindUI({
+        element: '#pagefind-search-page',
+        showSubResults: true,
+        resetStyles: false,
+      });
+    } catch {
+      const el = document.getElementById('pagefind-search-page');
+      if (el) el.innerHTML = '<p style="color:var(--color-cream);opacity:0.5;font-size:0.875rem">Search index not built yet. Run <code>npm run build</code> first.</p>';
+    }
+  }
+  init();
+</script>

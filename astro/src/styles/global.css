@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-navy: #00233F;
+  --color-navy-light: #00304f;
+  --color-navy-lighter: #003d63;
+
+  --color-red: #CF4740;
+  --color-red-light: #db5e57;
+  --color-red-dark: #b53d37;
+
+  --color-sky: #6CCFF6;
+  --color-sky-dark: #4ab8e4;
+  --color-sky-light: #a0dff8;
+
+  --color-cream: #F1DABF;
+  --color-cream-muted: #c9b49a;
+
+  --color-purple: #6F73D2;
+  --color-purple-light: #8b8fdf;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-red);
+    color: white;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* Pagefind UI theming */
+  :root {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: #6CCFF6;
+    --pagefind-ui-text: #F1DABF;
+    --pagefind-ui-background: #00304f;
+    --pagefind-ui-border: #00304f;
+    --pagefind-ui-tag: #003d63;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+}

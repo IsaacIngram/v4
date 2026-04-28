@@ -1,0 +1,29 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+import SearchModal from '../../components/SearchModal.astro';
+import blogPosts from '../../data/blog-cache.json';
+
+const posts = blogPosts as any[];
+---
+
+<PageLayout title="Blog" description="Writing on embedded systems, startups, and software." narrow>
+  <div data-pagefind-ignore>
+    <h1 class="font-mono text-xs text-red uppercase tracking-widest mb-1">Blog</h1>
+    <p class="text-cream/40 text-sm mb-8">
+      Coming soon, with previews here and a full blog on <a href="https://isaac.coffee" target="_blank" rel="noopener noreferrer" class="text-cream/60 hover:text-sky transition-colors underline underline-offset-2">isaac.coffee</a>.
+    </p>
+
+    {posts.length === 0 ? (
+      <p class="font-mono text-xs text-cream/30">// no posts yet</p>
+    ) : (
+      <div>
+        {posts.map((post: any) => (
+          <BlogPostCard post={post} />
+        ))}
+      </div>
+    )}
+  </div>
+</PageLayout>
+
+<SearchModal />

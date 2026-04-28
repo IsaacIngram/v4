@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import SearchModal from '../components/SearchModal.astro';
+import { getCollection } from 'astro:content';
+import { owner } from '../data/owner';
+import blogPosts from '../data/blog-cache.json';
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
+  .slice(0, 4);
+
+const latestPosts = (blogPosts as any[]).slice(0, 4);
+
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: owner.name,
+  url: owner.website,
+  email: owner.email,
+  sameAs: Object.values(owner.social).filter(Boolean),
+});
+---
+
+<BaseLayout>
+  <script type="application/ld+json" set:html={personSchema} slot="head" />
+  <Hero />
+
+  <div class="mx-auto max-w-5xl px-6 pb-24 space-y-20">
+
+    {featuredProjects.length > 0 && (
+      <section>
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-mono text-xs text-sky uppercase tracking-widest">Projects</h2>
+          <a href="/projects" class="font-mono text-xs text-cream/30 hover:text-cream/60 transition-colors">all →</a>
+        </div>
+        <div>
+          {featuredProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {latestPosts.length > 0 && (
+      <section>
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-mono text-xs text-red uppercase tracking-widest">Blog</h2>
+          <a href="/blog" class="font-mono text-xs text-cream/30 hover:text-cream/60 transition-colors">all →</a>
+        </div>
+        <div>
+          {latestPosts.map((post: any) => (
+            <BlogPostCard post={post} />
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+
+  <SearchModal />
+</BaseLayout>

@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# generated blog cache
+src/data/blog-cache.json
+
 # macOS-specific files
 .DS_Store
 

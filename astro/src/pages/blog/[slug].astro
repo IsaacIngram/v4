@@ -1,0 +1,70 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import TagBadge from '../../components/TagBadge.astro';
+import SearchModal from '../../components/SearchModal.astro';
+import blogPosts from '../../data/blog-cache.json';
+
+export function getStaticPaths() {
+  return (blogPosts as any[]).map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: any };
+const date = post.publishDate
+  ? new Date(post.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  : '';
+---
+
+<PageLayout
+  title={post.title}
+  description={post.description}
+  canonicalUrl={post.externalUrl}
+  narrow
+>
+  <link slot="head" rel="canonical" href={post.externalUrl} />
+
+  <div data-pagefind-body data-pagefind-filter="type:blog">
+    <a href="/blog" class="inline-flex items-center gap-1.5 text-sm text-cream/50 hover:text-sky transition-colors mb-8">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+      All Posts
+    </a>
+
+    {date && <time class="text-xs text-cream/40 font-mono block mb-4">{date}</time>}
+    <h1 class="text-4xl font-bold text-cream mb-4">{post.title}</h1>
+
+    {post.tags?.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 mb-8">
+        {post.tags.map((tag: string) => <TagBadge tag={tag} variant="sky" />)}
+      </div>
+    )}
+
+    {post.description && (
+      <p class="text-cream/60 text-lg leading-relaxed mb-10 border-l-2 border-sky/40 pl-4">
+        {post.description}
+      </p>
+    )}
+
+    <div class="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
+      <p class="text-cream/60 text-sm mb-4">This post is published on my blog.</p>
+      <a
+        href={post.externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-sky/20 hover:bg-sky/30 text-sky rounded-lg text-sm font-medium transition-colors"
+      >
+        Read full post
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</PageLayout>
+
+<SearchModal />

@@ -1,0 +1,18 @@
+---
+interface Props {
+  tag: string;
+  variant?: 'default' | 'sky' | 'purple' | 'red';
+}
+const { tag, variant = 'default' } = Astro.props;
+
+const styles = {
+  default: 'bg-white/10 text-cream/70 border border-white/10',
+  sky: 'bg-sky/15 text-sky border border-sky/20',
+  purple: 'bg-purple/15 text-purple-light border border-purple/20',
+  red: 'bg-red/15 text-red-light border border-red/20',
+};
+---
+
+<span class={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${styles[variant]}`}>
+  {tag}
+</span>

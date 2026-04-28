@@ -1,0 +1,13 @@
+---
+import SocialLinks from './SocialLinks.astro';
+import { owner } from '../data/owner';
+---
+
+<footer class="border-t border-white/10 mt-24">
+  <div class="mx-auto max-w-5xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-cream/40 text-sm">
+      © {new Date().getFullYear()} {owner.name}
+    </p>
+    <SocialLinks size="sm" />
+  </div>
+</footer>

@@ -1,0 +1,63 @@
+---
+---
+
+<dialog
+  id="search-modal"
+  class="w-full max-w-xl mx-auto mt-16 p-0 rounded-xl bg-navy-light border border-white/15 shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
+>
+  <div class="p-4">
+    <div id="pagefind-search"></div>
+  </div>
+  <button
+    id="close-search"
+    class="absolute top-3 right-3 p-1.5 text-cream/40 hover:text-cream rounded transition-colors"
+    aria-label="Close search"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 6 18M6 6l12 12"/>
+    </svg>
+  </button>
+</dialog>
+
+<script is:inline>
+  const modal = document.getElementById('search-modal') as HTMLDialogElement | null;
+  const closeBtn = document.getElementById('close-search');
+
+  let pagefindLoaded = false;
+
+  async function loadPagefind() {
+    if (pagefindLoaded) return;
+    pagefindLoaded = true;
+    try {
+      // @ts-ignore
+      const { PagefindUI } = await import('/pagefind/pagefind-ui.js');
+      new PagefindUI({
+        element: '#pagefind-search',
+        showSubResults: true,
+        resetStyles: false,
+      });
+    } catch {
+      // pagefind index not built yet (dev mode)
+      const el = document.getElementById('pagefind-search');
+      if (el) el.innerHTML = '<p style="color:var(--color-cream);opacity:0.5;padding:1rem;text-align:center;font-size:0.875rem">Search available after build</p>';
+    }
+  }
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) modal.close();
+  });
+
+  closeBtn?.addEventListener('click', () => modal?.close());
+
+  modal?.addEventListener('show', loadPagefind);
+
+  const origShowModal = HTMLDialogElement.prototype.showModal;
+  HTMLDialogElement.prototype.showModal = function () {
+    origShowModal.call(this);
+    if (this === modal) loadPagefind();
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modal?.close();
+  });
+</script>

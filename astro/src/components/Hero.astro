@@ -1,0 +1,48 @@
+---
+import { owner } from '../data/owner';
+import SocialLinks from './SocialLinks.astro';
+---
+
+<section class="mx-auto max-w-5xl px-6 pt-20 pb-16">
+  <div class="max-w-xl">
+
+    <h1 class="text-5xl sm:text-6xl font-bold text-cream tracking-tight mb-5">
+      {owner.name}
+    </h1>
+
+    <p class="font-mono text-base mb-8">
+      <span class="text-sky">embedded software</span>
+      <span class="text-cream/30"> · </span>
+      <span class="text-red">startup founder</span>
+    </p>
+
+    <p class="text-cream/60 text-base leading-relaxed mb-10 max-w-md">
+      {owner.longBio}
+    </p>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <a
+        href="/projects"
+        class="px-5 py-2 bg-red hover:bg-red-light text-white font-mono text-sm transition-colors"
+      >
+        ./projects
+      </a>
+      <a
+        href="/connect"
+        class="px-5 py-2 border border-sky/40 text-sky hover:bg-sky/10 font-mono text-sm transition-colors"
+      >
+        ./connect
+      </a>
+      <a
+        href="/resume"
+        class="px-5 py-2 border border-white/15 text-cream/50 hover:text-cream hover:border-white/30 font-mono text-sm transition-colors"
+      >
+        ./resume
+      </a>
+    </div>
+
+    <div class="mt-10">
+      <SocialLinks size="md" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SearchModal from '../../components/SearchModal.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const sorted = projects.sort((a, b) => {
+  if (a.data.order !== undefined && b.data.order !== undefined) {
+    return a.data.order - b.data.order;
+  }
+  return b.data.publishDate.getTime() - a.data.publishDate.getTime();
+});
+
+const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
+---
+
+<PageLayout title="Projects" description="Software projects I've built." narrow>
+  <div data-pagefind-ignore>
+    <h1 class="font-mono text-xs text-sky uppercase tracking-widest mb-1">Projects</h1>
+    <p class="text-cream/40 text-sm mb-8">Things I've built.</p>
+
+    {allTags.length > 0 && (
+      <div class="flex flex-wrap gap-x-4 gap-y-1 mb-8">
+        {allTags.map((tag) => (
+          <button
+            class="tag-filter font-mono text-xs text-cream/30 hover:text-cream/70 transition-colors data-[active]:text-sky"
+            data-tag={tag}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <div id="projects-list">
+      {sorted.map((project) => (
+        <div data-tags={project.data.tags.join(',')}>
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+  </div>
+</PageLayout>
+
+<SearchModal />
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.tag-filter');
+  const list = document.getElementById('projects-list');
+  let activeTag: string | null = null;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.tag!;
+      activeTag = activeTag === tag ? null : tag;
+      buttons.forEach((b) => {
+        b.dataset.tag === activeTag ? b.setAttribute('data-active', '') : b.removeAttribute('data-active');
+      });
+      list?.querySelectorAll<HTMLDivElement>('[data-tags]').forEach((card) => {
+        const tags = card.dataset.tags?.split(',') ?? [];
+        card.style.display = activeTag === null || tags.includes(activeTag) ? '' : 'none';
+      });
+    });
+  });
+</script>

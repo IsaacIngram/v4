@@ -1,0 +1,20 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  noIndex?: boolean;
+  narrow?: boolean;
+}
+
+const { narrow = false, ...rest } = Astro.props;
+---
+
+<BaseLayout {...rest}>
+  <div class={`mx-auto px-6 py-16 ${narrow ? 'max-w-2xl' : 'max-w-5xl'}`}>
+    <slot />
+  </div>
+</BaseLayout>

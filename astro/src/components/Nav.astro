@@ -1,0 +1,57 @@
+---
+const links = [
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/connect', label: 'Connect' },
+];
+
+const current = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-sky/15 backdrop-blur-md bg-navy/90">
+  <nav class="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
+    <a href="/" class="font-bold text-base tracking-wide">
+      <span class="text-sky">isaac</span><span class="text-red">.</span>
+    </a>
+
+    <div class="flex items-center gap-0.5">
+      {links.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`px-3 py-1.5 font-mono text-sm transition-colors ${
+            current.startsWith(href)
+              ? 'text-sky'
+              : 'text-cream/50 hover:text-cream'
+          }`}
+        >
+          {label}
+        </a>
+      ))}
+
+      <button
+        id="search-trigger"
+        aria-label="Search (⌘K)"
+        class="ml-2 p-2 text-cream/40 hover:text-sky transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.getElementById('search-trigger')?.addEventListener('click', () => {
+    document.getElementById('search-modal')?.showModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('search-modal')?.showModal();
+    }
+  });
+</script>

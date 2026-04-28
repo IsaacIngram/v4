@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 — Not Found" noIndex>
+  <div data-pagefind-ignore class="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center px-6 text-center">
+    <p class="text-sky font-mono text-sm mb-4">404</p>
+    <h1 class="text-4xl font-bold text-cream mb-3">Page not found</h1>
+    <p class="text-cream/60 mb-8">That URL doesn't exist.</p>
+    <a
+      href="/"
+      class="px-5 py-2.5 bg-red hover:bg-red-light text-cream rounded-lg font-medium text-sm transition-colors"
+    >
+      Go home
+    </a>
+  </div>
+</BaseLayout>
