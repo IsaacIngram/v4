@@ -2,7 +2,7 @@ export const owner = {
   name: 'Isaac Ingram',
   shortBio: 'Engineer & founder.',
   longBio: 'Embedded and high-performance software engineer. Building products that matter.',
-  email: 'isaac@isaacingram.com',
+  email: 'me@isaacingram.dev',
   phone: '9187281665',
   org: '',
   title: '',
