@@ -3,7 +3,7 @@ import { owner } from './owner';
 export interface SocialLink {
   label: string;
   href: string;
-  icon: 'github' | 'linkedin' | 'instagram' | 'twitter' | 'bluesky' | 'email';
+  icon: 'github' | 'linkedin' | 'instagram' | 'twitter' | 'bluesky' | 'email' | 'external';
 }
 
 export const socialLinks: SocialLink[] = [
@@ -36,5 +36,10 @@ export const socialLinks: SocialLink[] = [
     label: 'Email',
     href: `mailto:${owner.email}`,
     icon: 'email' as const,
+  },
+  {
+    label: "What I'm Building",
+    href: 'https://gridnil.com',
+    icon: 'external' as const,
   },
 ].filter(Boolean) as SocialLink[];
