@@ -3,7 +3,7 @@ import { owner } from './owner';
 export interface SocialLink {
   label: string;
   href: string;
-  icon: 'github' | 'linkedin' | 'twitter' | 'bluesky' | 'email';
+  icon: 'github' | 'linkedin' | 'instagram' | 'twitter' | 'bluesky' | 'email';
 }
 
 export const socialLinks: SocialLink[] = [
@@ -16,6 +16,11 @@ export const socialLinks: SocialLink[] = [
     label: 'LinkedIn',
     href: owner.social.linkedin,
     icon: 'linkedin' as const,
+  },
+  owner.social.instagram && {
+    label: 'Instagram',
+    href: owner.social.instagram,
+    icon: 'instagram' as const,
   },
   owner.social.twitter && {
     label: 'Twitter / X',

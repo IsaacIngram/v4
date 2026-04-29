@@ -10,7 +10,8 @@ export const owner = {
   location: '',
   social: {
     github: 'https://github.com/IsaacIngram',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/isaac-ingram/',
+    instagram: '',
     twitter: '',
     bluesky: '',
   },
