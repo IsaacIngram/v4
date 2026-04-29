@@ -1,20 +1,17 @@
 ---
 title: Summer Orienteering
 description: A 3D path finding program to assist in planning for an orienteering adventure.
-githubUrl: 'https://nothing.com'
-liveDemoUrl: 'https://nothing.com'
-tags: [Python, AI, Path Finding]
+tags: [Python]
 featured: true
-publishDate: 2024-01-01
-order: 1
+publishDate: 2024-03-01
+order: 2
 ---
-
-# Summer Orienteering
 ### Lab for CSCI-331: Intro to AI
 
 In the sport of [orienteering](https://en.wikipedia.org/wiki/Orienteering), you are given a map with terrain information, including elevation, contours, and a set of locations to visit. Success requires a combination of athletic and planning skills - a smart competitor who can figure out the best way to traverse the terrain may beat a more athletic competitor who makes poor choices!
 In this lab, we created a path finding algorithm to assist in the planning process.
 
+![](summer_orienteering_3d.gif)
 #### Image: Animated Terrain Example (Credit: Eric Dudley)
 
 ## The Lab
@@ -37,6 +34,7 @@ When calculating the time to travel between two coordinates, the speed at which 
 
 ## Results
 
+![](summer_orienteering_output.png)
 #### Image: Output of Full Test Case
 
 The full test case used the 395x500 image above (197,500 coordinates) and the path contained 19 waypoints. The total distance traveled for the quickest path found using my chosen traversal speeds was 6746.7468m. The program's runtime for this case was 0.29 seconds, including the time spent reading the input files and generating the output image. The purple path in the image represents the fastest path found by the algorithm, which is guaranteed to be the fastest path with the provided speeds.
