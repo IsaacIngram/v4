@@ -10,44 +10,58 @@ const current = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-50 border-b border-sky/15 backdrop-blur-md bg-navy/90">
-  <nav class="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
-    <a href="/" class="font-bold text-base tracking-wide">
-      <span class="text-sky">isaac</span><span class="text-red">.</span>
-    </a>
+  <nav class="mx-auto max-w-5xl px-6">
+    <!-- Desktop: single row -->
+    <div class="hidden sm:flex h-14 items-center justify-between">
+      <a href="/" class="font-bold text-base tracking-wide">
+        <span class="text-sky">isaac</span><span class="text-red">.</span>
+      </a>
 
-    <div class="flex items-center gap-0.5">
-      {links.map(({ href, label }) => (
-        <a
-          href={href}
-          class={`px-3 py-1.5 font-mono text-sm transition-colors ${
-            current.startsWith(href)
-              ? 'text-sky'
-              : 'text-cream/50 hover:text-cream'
-          }`}
-        >
-          {label}
+      <div class="flex items-center gap-0.5">
+        {links.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`px-3 py-1.5 font-mono text-sm transition-colors ${
+              current.startsWith(href)
+                ? 'text-sky'
+                : 'text-cream/50 hover:text-cream'
+            }`}
+          >
+            {label}
+          </a>
+        ))}
+        <!-- search-trigger removed from UI; re-add here when ready -->
+      </div>
+    </div>
+
+    <!-- Mobile: logo row + links row -->
+    <div class="sm:hidden flex flex-col py-2 gap-1">
+      <div class="flex items-center justify-between h-9">
+        <a href="/" class="font-bold text-base tracking-wide">
+          <span class="text-sky">isaac</span><span class="text-red">.</span>
         </a>
-      ))}
-
-      <button
-        id="search-trigger"
-        aria-label="Search (⌘K)"
-        class="ml-2 p-2 text-cream/40 hover:text-sky transition-colors"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="m21 21-4.35-4.35"/>
-        </svg>
-      </button>
+        <!-- search-trigger removed from UI; re-add here when ready -->
+      </div>
+      <div class="flex items-center justify-center gap-1">
+        {links.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`px-3 py-1 font-mono text-sm transition-colors ${
+              current.startsWith(href)
+                ? 'text-sky'
+                : 'text-cream/50 hover:text-cream'
+            }`}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
     </div>
   </nav>
 </header>
 
 <script>
-  document.getElementById('search-trigger')?.addEventListener('click', () => {
-    document.getElementById('search-modal')?.showModal();
-  });
-
+  // Search button removed from UI — Cmd/Ctrl+K still opens the modal
   document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
